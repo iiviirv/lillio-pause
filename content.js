@@ -29,19 +29,23 @@
 const CONTENT = {
   // UNDER 3 MINUTES: micro meditations and breath resets you can do
   // standing in the hallway. The shortest path back to a calm baseline.
+  // Audio-only by default: tap play, listen, you don't need to look.
   under3: {
     title: "Under 3 Minutes",
-    subtitle: "When you've got 60 seconds and a doorway. Breath resets, mini meditations, no commitment required.",
+    subtitle: "When you've got 60 seconds and a doorway. Breath resets, mini meditations, no commitment. Tap play and look back at the kids.",
     icon: "⚡",
     moods: ["stressed", "anxious"],
     items: [
-      { type: "youtube", id: "wWNaQr6RF8E", title: "4-7-8 Breathing, 1 Minute",          duration: "1 min",  tag: "Breath" },
-      { type: "youtube", id: "n6RbW2LtdFs", title: "Box Breathing, 1 Minute",             duration: "1 min",  tag: "Breath" },
-      { type: "youtube", id: "cEqZthCaMpo", title: "Mini Meditation: Breathe",            duration: "1 min",  tag: "Reset" },
-      { type: "youtube", id: "Xz224hIqwHM", title: "3-Minute Meditation for Stress Relief", duration: "3 min", tag: "Stress" },
-      { type: "youtube", id: "8Ffhv3-8Sjw", title: "3-Minute Breathing for Anxiety",       duration: "3 min",  tag: "Anxiety" },
-      { type: "youtube", id: "VzVpckjnOco", title: "3-Minute Relax and Relief",            duration: "3 min",  tag: "Calm" },
-      { type: "youtube", id: "ACYZXD3Ap1M", title: "3-Minute Mindful Reset",               duration: "3 min",  tag: "Reset" },
+      { type: "youtube", id: "wWNaQr6RF8E", title: "4-7-8 Breathing, 1 Minute",                  duration: "1 min",  tag: "Breath" },
+      { type: "youtube", id: "n6RbW2LtdFs", title: "Box Breathing, 1 Minute",                     duration: "1 min",  tag: "Breath" },
+      { type: "youtube", id: "cEqZthCaMpo", title: "Mini Meditation: Breathe",                    duration: "1 min",  tag: "Reset" },
+      { type: "youtube", id: "vLhOGEnEedk", title: "2-Minute Guided Meditation to Release Stress", duration: "2 min", tag: "Stress" },
+      { type: "youtube", id: "Xz224hIqwHM", title: "3-Minute Meditation for Stress Relief",       duration: "3 min", tag: "Stress" },
+      { type: "youtube", id: "8Ffhv3-8Sjw", title: "3-Minute Breathing for Anxiety",              duration: "3 min", tag: "Anxiety" },
+      { type: "youtube", id: "VzVpckjnOco", title: "3-Minute Relax and Relief",                   duration: "3 min", tag: "Calm" },
+      { type: "youtube", id: "ACYZXD3Ap1M", title: "3-Minute Mindful Reset",                      duration: "3 min", tag: "Reset" },
+      { type: "youtube", id: "tEmt1Znux58", title: "Box Breathing, Stress Relief (audio-friendly)", duration: "4 min", tag: "Breath" },
+      { type: "spotify-playlist",  id: "37i9dQZF1DWZqd5JICZI0u", title: "Peaceful Meditation, sample any track", duration: "Audio playlist", tag: "Spotify" },
     ],
   },
 

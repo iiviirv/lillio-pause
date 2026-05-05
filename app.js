@@ -9,9 +9,11 @@
   "use strict";
 
   // ---------- Config ----------
-  // Edit this if your Slack ID changes. Format: slack://user?team=TEAMID&id=USERID
-  // Or use a regular https://app.slack.com/client/TEAMID/USERID URL.
-  const SLACK_DM_URL = "https://lillio.slack.com/team/U_VAHID";
+  // Slack DM target. Workspace search by username works for most users.
+  // If Vahid's Slack member ID is known, replace with the deep-link form:
+  //   slack://user?team=TEAMID&id=USERID
+  // The current URL opens Slack and lets the user search/DM @Vahid directly.
+  const SLACK_DM_URL = "https://lillio.slack.com/messages/@vahid";
 
   // ---------- Helpers ----------
   const $ = (sel, root = document) => root.querySelector(sel);
@@ -66,31 +68,45 @@
   }
 
   // ---------- Card renderer ----------
+  // Cards lazy-load their iframes: nothing loads until the user taps play.
+  // YouTube videos start in compact "audio mode" (just the controls bar);
+  // a small toggle expands to the full 16:9 video.
   function renderCard(item) {
     const card = document.createElement("article");
     card.className = "card";
 
-    let mediaHTML = "";
-    let isAudio = false;
-    if (item.type === "youtube") {
-      mediaHTML = `<iframe src="${ytEmbed(item.id)}" title="${escapeHTML(item.title)}" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
-    } else if (item.type === "youtube-playlist") {
-      mediaHTML = `<iframe src="${ytPlaylistEmbed(item.id)}" title="${escapeHTML(item.title)}" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
-    } else if (item.type === "spotify-playlist") {
-      isAudio = true;
-      mediaHTML = `<iframe src="${spotifyEmbed("playlist", item.id)}" title="${escapeHTML(item.title)}" loading="lazy" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>`;
-    } else if (item.type === "spotify-album") {
-      isAudio = true;
-      mediaHTML = `<iframe src="${spotifyEmbed("album", item.id)}" title="${escapeHTML(item.title)}" loading="lazy" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>`;
-    } else if (item.type === "spotify-track") {
-      isAudio = true;
-      mediaHTML = `<iframe src="${spotifyEmbed("track", item.id)}" title="${escapeHTML(item.title)}" loading="lazy" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>`;
-    }
-
-    const sourceTag = item.type.startsWith("spotify") ? "spotify" : "youtube";
+    const isSpotify = item.type.startsWith("spotify");
+    const isYouTubeVideo = item.type === "youtube" || item.type === "youtube-playlist";
+    const sourceTag = isSpotify ? "spotify" : "youtube";
     const isFav = Favorites.has(item);
+
+    // Build the iframe URL (used when the user clicks play).
+    let iframeUrl = "";
+    if (item.type === "youtube") iframeUrl = ytEmbed(item.id) + "&autoplay=1";
+    else if (item.type === "youtube-playlist") iframeUrl = ytPlaylistEmbed(item.id) + "&autoplay=1";
+    else if (item.type === "spotify-playlist") iframeUrl = spotifyEmbed("playlist", item.id);
+    else if (item.type === "spotify-album") iframeUrl = spotifyEmbed("album", item.id);
+    else if (item.type === "spotify-track") iframeUrl = spotifyEmbed("track", item.id);
+
+    // YouTube thumbnail (uses the video ID; for playlists we don't have one).
+    const ytThumb = item.type === "youtube"
+      ? `https://i.ytimg.com/vi/${item.id}/hqdefault.jpg`
+      : "";
+
+    // Initial state: a play card. iframe is NOT loaded yet.
     card.innerHTML = `
-      <div class="card-media ${isAudio ? "audio" : "video"}">${mediaHTML}</div>
+      <div class="card-media ${isSpotify ? "audio" : "video"} ${isYouTubeVideo ? "lazy yt-mode-audio" : ""}">
+        ${isYouTubeVideo ? `
+          <button class="play-overlay" type="button" aria-label="Play ${escapeHTML(item.title)}">
+            ${ytThumb ? `<img class="play-thumb" src="${ytThumb}" alt="" loading="lazy" />` : `<div class="play-thumb-fallback"></div>`}
+            <span class="play-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+            </span>
+          </button>
+        ` : `
+          <iframe src="${iframeUrl}" title="${escapeHTML(item.title)}" loading="lazy" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+        `}
+      </div>
       <div class="card-body">
         <div class="card-title">
           <span class="card-title-text">${escapeHTML(item.title)}</span>
@@ -101,11 +117,15 @@
         <div class="card-meta">
           ${item.tag ? `<span class="tag ${sourceTag}">${escapeHTML(item.tag)}</span>` : ""}
           ${item.duration ? `<span class="duration">${escapeHTML(item.duration)}</span>` : ""}
+          ${isYouTubeVideo ? `<button class="video-toggle" type="button" aria-label="Show video" title="Show video" hidden>
+            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="23 7 16 12 23 17 23 7"></polygon><rect x="1" y="5" width="15" height="14" rx="2" ry="2"></rect></svg>
+            <span class="video-toggle-label">Video</span>
+          </button>` : ""}
         </div>
       </div>
     `;
 
-    // wire favorite toggle
+    // Favorite toggle
     const favBtn = $(".fav-btn", card);
     favBtn.addEventListener("click", e => {
       e.stopPropagation();
@@ -114,10 +134,41 @@
       favBtn.classList.toggle("is-fav", nowFav);
       favBtn.textContent = nowFav ? "♥" : "♡";
       favBtn.setAttribute("aria-label", nowFav ? "Remove from saved" : "Save to your list");
-      // Update fav count + favorites tab if open
       updateFavCount();
       if (currentSection === "favorites") renderFavorites();
     });
+
+    // YouTube: play overlay + audio/video toggle
+    if (isYouTubeVideo) {
+      const media = $(".card-media", card);
+      const playBtn = $(".play-overlay", card);
+      const videoToggle = $(".video-toggle", card);
+
+      playBtn.addEventListener("click", () => {
+        // Replace play overlay with the iframe (autoplay enabled)
+        media.innerHTML = `<iframe src="${iframeUrl}" title="${escapeHTML(item.title)}" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" allowfullscreen></iframe>`;
+        media.classList.remove("lazy");
+        // Reveal the video toggle now that something's playing
+        videoToggle.hidden = false;
+      });
+
+      videoToggle.addEventListener("click", () => {
+        const isAudioMode = media.classList.contains("yt-mode-audio");
+        if (isAudioMode) {
+          media.classList.remove("yt-mode-audio");
+          media.classList.add("yt-mode-video");
+          videoToggle.setAttribute("aria-label", "Hide video");
+          videoToggle.title = "Hide video";
+          $(".video-toggle-label", videoToggle).textContent = "Audio";
+        } else {
+          media.classList.add("yt-mode-audio");
+          media.classList.remove("yt-mode-video");
+          videoToggle.setAttribute("aria-label", "Show video");
+          videoToggle.title = "Show video";
+          $(".video-toggle-label", videoToggle).textContent = "Video";
+        }
+      });
+    }
 
     return card;
   }

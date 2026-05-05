@@ -424,11 +424,104 @@ button { font-family: inherit; }
   box-shadow: var(--shadow-2);
   border-color: transparent;
 }
-.card-media { position: relative; width: 100%; background: var(--surface-3); }
+.card-media { position: relative; width: 100%; background: var(--surface-3); transition: aspect-ratio .25s ease; }
 .card-media.video { aspect-ratio: 16 / 9; }
 .card-media.audio { min-height: 152px; }
 .card-media iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
 .card-media.audio iframe { position: relative; height: 152px; }
+
+/* YouTube lazy-load: play overlay shown until clicked */
+.play-overlay {
+  position: absolute;
+  inset: 0;
+  border: 0;
+  padding: 0;
+  margin: 0;
+  background: var(--surface-3);
+  cursor: pointer;
+  overflow: hidden;
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.play-thumb {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  filter: brightness(0.85);
+  transition: filter .2s ease, transform .35s ease;
+}
+:root[data-theme="dark"] .play-thumb { filter: brightness(0.65); }
+.play-overlay:hover .play-thumb { filter: brightness(0.95); transform: scale(1.02); }
+:root[data-theme="dark"] .play-overlay:hover .play-thumb { filter: brightness(0.78); }
+.play-thumb-fallback {
+  width: 100%; height: 100%;
+  background: linear-gradient(135deg, var(--coral-tint) 0%, var(--mint-soft) 100%);
+}
+.play-icon {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 56px; height: 56px;
+  border-radius: 50%;
+  background: var(--coral);
+  color: #fff;
+  display: grid;
+  place-items: center;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.25);
+  transition: transform .15s ease, background .15s ease;
+}
+.play-overlay:hover .play-icon { background: var(--coral-dark); transform: translate(-50%, -50%) scale(1.06); }
+.play-overlay:active .play-icon { transform: translate(-50%, -50%) scale(0.96); }
+.play-icon svg { margin-left: 3px; }
+
+/* YouTube audio mode (default after iframe loads): compact controls only.
+   Only applies when card-media is NOT in the .lazy (play overlay) state. */
+.card-media.yt-mode-audio:not(.lazy) {
+  aspect-ratio: auto;
+  height: 152px;
+  overflow: hidden;
+}
+.card-media.yt-mode-audio:not(.lazy) iframe {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  /* show only the bottom controls bar by translating the video off-screen */
+  transform: translateY(-32%);
+  transform-origin: bottom;
+  pointer-events: auto;
+}
+
+/* YouTube video mode (after toggle): full 16:9 */
+.card-media.yt-mode-video {
+  aspect-ratio: 16 / 9;
+  height: auto;
+}
+.card-media.yt-mode-video iframe {
+  position: absolute;
+  inset: 0;
+  transform: none;
+}
+
+/* Video / Audio toggle in card meta */
+.video-toggle {
+  margin-left: auto;
+  background: transparent;
+  border: 1px solid var(--line);
+  color: var(--ink-4);
+  padding: 3px 9px 3px 7px;
+  border-radius: var(--radius-pill);
+  font-size: 11.5px;
+  font-weight: 500;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  transition: color .15s ease, border-color .15s ease, background .15s ease;
+}
+.video-toggle:hover { color: var(--coral); border-color: var(--coral); background: var(--coral-tint); }
+.video-toggle:active { transform: scale(0.96); }
 .card-body { padding: 14px 16px 16px; display: flex; flex-direction: column; gap: 8px; flex: 1; }
 .card-title {
   font-family: var(--font-display);
