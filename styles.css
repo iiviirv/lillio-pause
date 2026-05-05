@@ -567,7 +567,7 @@ button { font-family: inherit; }
 .tag.audio { background: color-mix(in srgb, var(--mint) 22%, transparent); color: #2e9b6c; }
 :root[data-theme="dark"] .tag.audio { background: color-mix(in srgb, var(--mint) 24%, transparent); color: var(--mint); }
 
-/* Hosted audio (HTML5 <audio>) — self-hosted MP3s, no third party */
+/* Hosted audio (HTML5 <audio>): direct MP3, no third-party widget */
 .card-media.hosted-audio {
   background: linear-gradient(135deg, var(--coral-tint) 0%, var(--mint-soft) 100%);
   min-height: 152px;
