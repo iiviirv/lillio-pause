@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Lillio Pause</title>
+  <meta name="description" content="A quiet corner of the day for Lillio educators — meditations, focus music, and a Pomodoro timer. No login required." />
+  <meta name="theme-color" content="#f76363" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23f76363'/%3E%3Ctext x='32' y='44' font-family='Poppins,sans-serif' font-size='34' font-weight='700' text-anchor='middle' fill='white'%3EL%3C/text%3E%3C/svg%3E" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="brand">
+        <a href="#" class="brand-link" aria-label="Lillio Pause home">
+          <img class="brand-logo" src="https://images.ctfassets.net/x4nvfpejxuu4/12O04RxNlc9v6CaRqNE4hq/04c7047ed8b555ce679d8b223b1c99d8/Group_5.svg" alt="Lillio" width="111" height="46" />
+        </a>
+        <span class="tagline-pill">Pause</span>
+      </div>
+      <h1 class="hero-title">A quiet corner of the day, just for you.</h1>
+      <p class="hero-sub">Free meditations, focus music, and a timer to help you take real breaks. No login. No tracking. Just press play.</p>
+    </div>
+  </header>
+
+  <nav class="tabs" id="tabs">
+    <button class="tab" data-target="welcome">👋 Start Here</button>
+    <!-- Content tabs are injected by app.js between Welcome and Timer -->
+    <button class="tab" data-target="timer">⏱ Timer</button>
+  </nav>
+
+  <main id="main">
+
+    <!-- WELCOME / HOW TO USE -->
+    <section class="section" data-section="welcome">
+      <div class="section-header">
+        <span class="section-icon">👋</span>
+        <h2>Welcome to Lillio Pause</h2>
+      </div>
+      <p class="section-sub">A small wellness break, on us. Here's how to make the most of it.</p>
+
+      <div class="welcome-grid">
+        <div class="welcome-card">
+          <div class="welcome-num">1</div>
+          <h3>Pick a tab that matches the moment</h3>
+          <p>Five minutes between activities? <strong>Quick Resets</strong>. Lesson planning at the desk? <strong>Focus Music</strong>. End of a long day? <strong>Wind Down</strong>. There's no wrong choice — these are just shortcuts.</p>
+        </div>
+
+        <div class="welcome-card">
+          <div class="welcome-num">2</div>
+          <h3>Press play — that's it</h3>
+          <p>Every video and playlist plays right here in the page. You don't need to sign in to YouTube or Spotify (Spotify gives you 30-second previews without an account; full playback if you have one). Headphones recommended, but not required.</p>
+        </div>
+
+        <div class="welcome-card">
+          <div class="welcome-num">3</div>
+          <h3>Use the Timer for real breaks</h3>
+          <p>The <strong>Timer</strong> tab is a Pomodoro: 25 minutes of focus, 5 minutes off, and a longer break every fourth round. Tweak the intervals to whatever fits your day. Pair it with focus music for deep work, or let it nudge you toward a real break.</p>
+        </div>
+
+        <div class="welcome-card">
+          <div class="welcome-num">4</div>
+          <h3>Come back tomorrow</h3>
+          <p>The library refreshes weekly with fresh meditations and music. Bookmark this page or pin it in your browser — it'll always be a click away when you need a beat.</p>
+        </div>
+      </div>
+
+      <div class="welcome-cta">
+        <p>Got a favorite video or playlist that should be in here? Let us know. This is for you.</p>
+      </div>
+    </section>
+
+    <!-- Content sections are injected by app.js between Welcome and Timer -->
+
+    <!-- TIMER (hardcoded) -->
+    <section class="section" data-section="timer">
+      <div class="section-header">
+        <span class="section-icon">⏱</span>
+        <h2>Pomodoro Timer</h2>
+      </div>
+      <p class="section-sub">25 minutes of focus, 5 minutes of rest. Every fourth break is a longer one. Tweak the intervals if a different rhythm works better for you.</p>
+
+      <div class="timer-wrap">
+        <div class="timer-card">
+          <div class="timer-mode" id="timerMode">Focus</div>
+          <div class="timer-display" id="timerDisplay">25:00</div>
+          <div class="timer-cycle" id="timerCycle">Cycle 1 of 4</div>
+          <div class="timer-controls">
+            <button class="btn btn-primary" id="startBtn">Start</button>
+            <button class="btn btn-secondary" id="resetBtn">Reset</button>
+            <button class="btn btn-secondary" id="skipBtn">Skip</button>
+          </div>
+        </div>
+
+        <div class="timer-config">
+          <h3>Settings</h3>
+          <div class="config-row">
+            <label for="cfgWork">Focus length (min)</label>
+            <input type="number" id="cfgWork" min="1" max="180" value="25" />
+          </div>
+          <div class="config-row">
+            <label for="cfgShort">Short break (min)</label>
+            <input type="number" id="cfgShort" min="1" max="60" value="5" />
+          </div>
+          <div class="config-row">
+            <label for="cfgLong">Long break (min)</label>
+            <input type="number" id="cfgLong" min="1" max="90" value="15" />
+          </div>
+          <div class="config-row">
+            <label for="cfgCycles">Cycles before long break</label>
+            <input type="number" id="cfgCycles" min="2" max="12" value="4" />
+          </div>
+          <label class="config-checkbox">
+            <input type="checkbox" id="cfgAuto" />
+            Auto-start the next interval
+          </label>
+          <label class="config-checkbox">
+            <input type="checkbox" id="cfgSound" checked />
+            Chime when an interval ends
+          </label>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    Made for Lillio educators. Content lives on YouTube and Spotify — we just curate it.
+  </footer>
+
+  <script src="content.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
