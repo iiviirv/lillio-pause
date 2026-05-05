@@ -115,11 +115,10 @@
             </span>
           </button>
         ` : isHostedAudio ? `
-          <div class="hosted-audio-wrap">
-            <audio controls preload="none" src="${escapeHTML(item.url)}"${item.type === "audio" ? "" : ""}>
-              Your browser does not support audio playback.
-            </audio>
-          </div>
+          ${item.art ? `<div class="hosted-audio-art" style="background-image: url('${escapeHTML(item.art)}')"></div>` : `<div class="hosted-audio-art hosted-audio-art-fallback"></div>`}
+          <audio controls preload="none" src="${escapeHTML(item.url)}" class="hosted-audio-player">
+            Your browser does not support audio playback.
+          </audio>
         ` : `
           <iframe src="${iframeUrl}" title="${escapeHTML(item.title)}" loading="lazy" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
         `}

@@ -567,23 +567,52 @@ button { font-family: inherit; }
 .tag.audio { background: color-mix(in srgb, var(--mint) 22%, transparent); color: #2e9b6c; }
 :root[data-theme="dark"] .tag.audio { background: color-mix(in srgb, var(--mint) 24%, transparent); color: var(--mint); }
 
-/* Hosted audio (HTML5 <audio>): direct MP3, no third-party widget */
+/* Hosted audio (HTML5 <audio>): direct MP3 with cover artwork */
 .card-media.hosted-audio {
-  background: linear-gradient(135deg, var(--coral-tint) 0%, var(--mint-soft) 100%);
-  min-height: 152px;
+  aspect-ratio: 16 / 9;
+  position: relative;
+  overflow: hidden;
+  background: var(--surface-3);
   display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 16px;
+  align-items: flex-end;
+  padding: 0;
 }
-:root[data-theme="dark"] .card-media.hosted-audio {
-  background: linear-gradient(135deg, rgba(255,122,122,0.14) 0%, rgba(126,212,163,0.14) 100%);
+.hosted-audio-art {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  background-color: var(--surface-3);
+  z-index: 0;
 }
-.hosted-audio-wrap { width: 100%; }
-.hosted-audio-wrap audio {
+.hosted-audio-art::after {
+  /* subtle vignette so the audio bar reads cleanly */
+  content: "";
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  height: 60%;
+  background: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.35) 100%);
+  pointer-events: none;
+}
+.hosted-audio-art-fallback {
+  background: linear-gradient(135deg, var(--coral-tint) 0%, var(--mint-soft) 100%);
+}
+:root[data-theme="dark"] .hosted-audio-art-fallback {
+  background: linear-gradient(135deg, rgba(255,122,122,0.18) 0%, rgba(126,212,163,0.18) 100%);
+}
+.hosted-audio-player {
+  position: relative;
+  z-index: 1;
   width: 100%;
   height: 40px;
+  background: rgba(255,255,255,0.92);
+  backdrop-filter: blur(10px) saturate(140%);
+  -webkit-backdrop-filter: blur(10px) saturate(140%);
   display: block;
+}
+:root[data-theme="dark"] .hosted-audio-player {
+  background: rgba(20,20,22,0.78);
+  filter: invert(0.88) hue-rotate(180deg);
 }
 .duration { color: var(--ink-5); font-weight: 500; }
 
