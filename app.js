@@ -249,11 +249,11 @@
     const picks = [];
     for (const k of priority) {
       const items = content[k]?.items || [];
-      // Take up to 2 per category
-      picks.push(...items.slice(0, 2));
-      if (picks.length >= 6) break;
+      // Take up to 4 per category
+      picks.push(...items.slice(0, 4));
+      if (picks.length >= 15) break;
     }
-    return { greeting, sub, picks: picks.slice(0, 6) };
+    return { greeting, sub, picks: picks.slice(0, 15) };
   }
 
   // ---------- Mood filter ----------
@@ -271,10 +271,10 @@
     for (const key of Object.keys(content)) {
       const def = content[key];
       if ((def.moods || []).includes(mood)) {
-        items.push(...def.items.slice(0, 3));
+        items.push(...def.items.slice(0, 8));
       }
     }
-    renderGrid(grid, items.slice(0, 9));
+    renderGrid(grid, items.slice(0, 24));
   }
 
   // ---------- Favorites view ----------
@@ -297,6 +297,34 @@
     const n = Favorites.list().length;
     const el = $("#favCount");
     el.textContent = n > 0 ? n : "";
+  }
+
+  function updateSidebarCounts(content) {
+    Object.keys(content).forEach(key => {
+      const el = document.querySelector(`[data-count-for="${key}"]`);
+      if (el) el.textContent = content[key].items.length;
+    });
+    const total = Object.values(content).reduce((sum, c) => sum + c.items.length, 0);
+    $("#allCount").textContent = total;
+  }
+
+  // ---------- All Content view ----------
+  let allFilterSource = "all";
+  function renderAll(source = allFilterSource) {
+    allFilterSource = source;
+    $$("#allFilterRow .mood-pill").forEach(p => p.classList.toggle("active", p.dataset.source === source));
+    let items = ALL_ITEMS.map(({ item }) => item);
+    if (source !== "all") {
+      items = items.filter(it => {
+        if (source === "audio") return it.type === "audio";
+        if (source === "youtube") return it.type === "youtube" || it.type === "youtube-playlist";
+        if (source === "soundcloud") return it.type === "soundcloud";
+        if (source === "spotify") return it.type.startsWith("spotify");
+        return true;
+      });
+    }
+    $("#allCountInline").textContent = items.length + " " + (items.length === 1 ? "item" : "items");
+    renderGrid($("#allGrid"), items);
   }
 
   // ---------- Search ----------
@@ -333,6 +361,7 @@
     $$(".nav-item").forEach(t => t.classList.toggle("active", t.dataset.target === key));
     $$(".section").forEach(s => s.classList.toggle("active", s.dataset.section === key));
     if (key === "favorites") renderFavorites();
+    if (key === "all") renderAll(allFilterSource);
     closeMobileSidebar();
     if (!opts.silent) window.scrollTo({ top: 0, behavior: "smooth" });
   }
@@ -560,6 +589,12 @@
     });
 
     updateFavCount();
+    updateSidebarCounts(data);
+
+    // All-content source filter clicks
+    $$("#allFilterRow .mood-pill").forEach(p => {
+      p.addEventListener("click", () => renderAll(p.dataset.source));
+    });
 
     // First-visit lands on Welcome; returning visitors land on Today's picks
     let seen = false;
