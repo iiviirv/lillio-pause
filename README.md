@@ -2,7 +2,6 @@
 
 A free, no-login wellness page for the Lillio team. Embedded YouTube meditations and sleep stories, Spotify focus playlists and soundscapes, classroom-friendly mindfulness, and a customizable Pomodoro timer.
 
-Live at https://lillio-pause.netlify.app, deployed automatically from the `main` branch of this repo.
 
 ## What's in the box
 
