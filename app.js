@@ -22,6 +22,10 @@
   const ytEmbed = id => `https://www.youtube-nocookie.com/embed/${id}?rel=0&modestbranding=1`;
   const ytPlaylistEmbed = id => `https://www.youtube-nocookie.com/embed/videoseries?list=${id}&rel=0&modestbranding=1`;
   const spotifyEmbed = (kind, id) => `https://open.spotify.com/embed/${kind}/${id}?utm_source=lillio_pause`;
+  // SoundCloud: free full-playback iframe embeds. URL is the canonical
+  // SoundCloud page (track or set), URL-encoded into the player.
+  const soundcloudEmbed = url =>
+    `https://w.soundcloud.com/player/?url=${encodeURIComponent(url)}&color=%23f76363&auto_play=false&hide_related=true&show_comments=false&show_user=true&show_reposts=false&show_teaser=false&visual=false&buying=false&liking=false&download=false&sharing=false`;
 
   function escapeHTML(s) {
     return String(s).replace(/[&<>"']/g, c =>
@@ -76,8 +80,9 @@
     card.className = "card";
 
     const isSpotify = item.type.startsWith("spotify");
+    const isSoundCloud = item.type === "soundcloud";
     const isYouTubeVideo = item.type === "youtube" || item.type === "youtube-playlist";
-    const sourceTag = isSpotify ? "spotify" : "youtube";
+    const sourceTag = isSpotify ? "spotify" : (isSoundCloud ? "soundcloud" : "youtube");
     const isFav = Favorites.has(item);
 
     // Build the iframe URL (used when the user clicks play).
@@ -87,6 +92,7 @@
     else if (item.type === "spotify-playlist") iframeUrl = spotifyEmbed("playlist", item.id);
     else if (item.type === "spotify-album") iframeUrl = spotifyEmbed("album", item.id);
     else if (item.type === "spotify-track") iframeUrl = spotifyEmbed("track", item.id);
+    else if (item.type === "soundcloud") iframeUrl = soundcloudEmbed(item.url);
 
     // YouTube thumbnail (uses the video ID; for playlists we don't have one).
     const ytThumb = item.type === "youtube"
@@ -94,8 +100,9 @@
       : "";
 
     // Initial state: a play card. iframe is NOT loaded yet.
+    const mediaClass = (isSpotify || isSoundCloud) ? "audio" : "video";
     card.innerHTML = `
-      <div class="card-media ${isSpotify ? "audio" : "video"} ${isYouTubeVideo ? "lazy yt-mode-audio" : ""}">
+      <div class="card-media ${mediaClass} ${isYouTubeVideo ? "lazy yt-mode-audio" : ""}">
         ${isYouTubeVideo ? `
           <button class="play-overlay" type="button" aria-label="Play ${escapeHTML(item.title)}">
             ${ytThumb ? `<img class="play-thumb" src="${ytThumb}" alt="" loading="lazy" />` : `<div class="play-thumb-fallback"></div>`}

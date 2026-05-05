@@ -13,13 +13,20 @@
 //         type: "youtube"            (or "youtube-playlist")
 //         id:   "the_id_you_copied"
 //
-//  Adding a Spotify item:
+//  Adding a Spotify item (note: 30-sec previews unless logged in):
 //    1. In Spotify, click the (...) menu on a playlist, album, or track,
 //       then Share, then Copy link. The ID is the long string that
 //       follows "/playlist/", e.g. 37i9dQZF1DWZqd5JICZI0u
 //    2. Add an entry with:
 //         type: "spotify-playlist"   (or "spotify-album" / "spotify-track")
 //         id:   "the_id_you_copied"
+//
+//  Adding a SoundCloud item (full playback, no login required):
+//    1. Open the track or playlist on SoundCloud.
+//    2. Copy the full URL from the address bar.
+//    3. Add an entry with:
+//         type: "soundcloud"
+//         url:  "https://soundcloud.com/USERNAME/sets/SET_NAME"
 //
 //  Items render in the order listed. Keep titles short and friendly.
 //  This file is automatically refreshed each Monday by a scheduled task.
@@ -115,24 +122,28 @@ const CONTENT = {
       { type: "youtube",          id: "MIr3RsUWrdo",            title: "20-Minute Wind-Down Meditation",                duration: "20 min",   tag: "Meditation" },
       { type: "youtube",          id: "d4S4twjeWTs",            title: "Meditation for Inner Peace",                    duration: "13 min",   tag: "Meditation" },
       { type: "youtube-playlist", id: "PLwRp13WDIrMPzLqtyvvPrs7sMR_lvZ8Bf", title: "Jason Stephenson Sleep Meditations", duration: "Playlist", tag: "Sleep" },
-      { type: "spotify-playlist", id: "37i9dQZF1DX2PQDq3PdrHQ", title: "Lofi Sleep",                                    duration: "Playlist", tag: "Spotify" },
-      { type: "spotify-playlist", id: "37i9dQZF1DX4PP3DA4J0N8", title: "Nature Sounds for Sleep",                       duration: "Playlist", tag: "Spotify" },
-      { type: "spotify-playlist", id: "37i9dQZF1DX3Ogo9pFvBkY", title: "Ambient Relaxation",                            duration: "Playlist", tag: "Spotify" },
+      { type: "soundcloud",       url: "https://soundcloud.com/lofi_girl/sets/synthwave-ambient-chill-music",   title: "Lofi Girl: Chill Music to Sleep To", duration: "Set",     tag: "SoundCloud" },
+      { type: "soundcloud",       url: "https://soundcloud.com/spaspace-music/sets/ambient-lofi-and-nature-sounds", title: "Ambient & Nature Sounds (Spa Space)", duration: "Set",  tag: "SoundCloud" },
+      { type: "spotify-playlist", id: "37i9dQZF1DX2PQDq3PdrHQ", title: "Lofi Sleep (Spotify, login for full)",          duration: "Playlist", tag: "Spotify" },
     ],
   },
 
   // SOUNDSCAPES: ambient audio, no narration. For naptime, focus, or
-  // anyone who finds guided meditation too talky.
+  // anyone who finds guided meditation too talky. SoundCloud and YouTube
+  // play in full for everyone; Spotify is preview-only without login.
   soundscapes: {
     title: "Soundscapes",
     subtitle: "Just sound, no narration. Rain on a window, a forest at dusk, a fireplace.",
     icon: "🌧️",
     moods: ["tired", "focus", "stressed"],
     items: [
-      { type: "spotify-playlist", id: "37i9dQZF1DX4PP3DA4J0N8", title: "Nature Sounds",          duration: "Playlist", tag: "Spotify" },
-      { type: "spotify-playlist", id: "37i9dQZF1DX3Ogo9pFvBkY", title: "Ambient Relaxation",     duration: "Playlist", tag: "Spotify" },
-      { type: "spotify-playlist", id: "37i9dQZF1DWZeKCadgRdKQ", title: "Deep Focus (Ambient)",   duration: "Playlist", tag: "Spotify" },
-      { type: "youtube",          id: "jfKfPfyJRdk",            title: "Lofi Girl, beats radio", duration: "Live",     tag: "YouTube" },
+      { type: "soundcloud",       url: "https://soundcloud.com/spaspace-music/sets/ambient-lofi-and-nature-sounds", title: "Ambient Lofi & Nature Sounds (Spa Space)", duration: "Set", tag: "SoundCloud" },
+      { type: "soundcloud",       url: "https://soundcloud.com/soothingrelaxation/deep-relaxing-music-vol-1-ambient-music-for-sleep-meditation-focus-relaxation", title: "Deep Relaxing Music Vol. 1 (Soothing Relaxation)", duration: "Track", tag: "SoundCloud" },
+      { type: "soundcloud",       url: "https://soundcloud.com/lofi_girl/sets/synthwave-ambient-chill-music", title: "Lofi Girl: Synth Ambient", duration: "Set", tag: "SoundCloud" },
+      { type: "soundcloud",       url: "https://soundcloud.com/noiseofdreamsnetwork/sets/lofi-ambient", title: "Lofi Ambient (Noise of Dreams)", duration: "Set", tag: "SoundCloud" },
+      { type: "youtube",          id: "jfKfPfyJRdk",                                                title: "Lofi Girl, beats radio (24/7)",  duration: "Live", tag: "YouTube" },
+      { type: "spotify-playlist", id: "37i9dQZF1DX4PP3DA4J0N8",                                     title: "Nature Sounds (Spotify, login for full)", duration: "Playlist", tag: "Spotify" },
+      { type: "spotify-playlist", id: "37i9dQZF1DX3Ogo9pFvBkY",                                     title: "Ambient Relaxation (Spotify, login for full)", duration: "Playlist", tag: "Spotify" },
     ],
   },
 
@@ -151,21 +162,22 @@ const CONTENT = {
   },
 
   // FOCUS MUSIC: for lesson planning, paperwork, parent emails, or any
-  // time you need to actually finish that thing on your list.
+  // time you need to actually finish that thing on your list. YouTube
+  // and SoundCloud play in full for everyone, no login required.
   focusMusic: {
     title: "Focus Music",
-    subtitle: "Background music for lesson planning, reports, and deep work.",
+    subtitle: "Background music for lesson planning, reports, and deep work. Press play and don't think about it.",
     icon: "🎧",
     moods: ["focus"],
     items: [
-      { type: "spotify-playlist", id: "37i9dQZF1DWZeKCadgRdKQ", title: "Deep Focus",              duration: "Playlist", tag: "Spotify" },
-      { type: "spotify-playlist", id: "37i9dQZF1DWXLeA8Omikj7", title: "Brain Food",              duration: "Playlist", tag: "Spotify" },
-      { type: "spotify-playlist", id: "37i9dQZF1DWWQRwui0ExPn", title: "Lofi Beats",              duration: "Playlist", tag: "Spotify" },
-      { type: "spotify-playlist", id: "37i9dQZF1DX8Uebhn9wzrS", title: "Chill Lofi Study Beats",  duration: "Playlist", tag: "Spotify" },
-      { type: "spotify-playlist", id: "37i9dQZF1DWVqfgj8NZEp1", title: "Coffee Table Jazz",       duration: "Playlist", tag: "Spotify" },
-      { type: "spotify-playlist", id: "37i9dQZF1DX3Ogo9pFvBkY", title: "Ambient Relaxation",      duration: "Playlist", tag: "Spotify" },
-      { type: "youtube",          id: "jfKfPfyJRdk",            title: "Lofi Girl, beats radio",  duration: "Live",     tag: "YouTube" },
-      { type: "youtube",          id: "HuFYqnbVbzY",            title: "Jazz Lofi Radio",         duration: "Live",     tag: "YouTube" },
+      { type: "youtube",          id: "jfKfPfyJRdk",            title: "Lofi Girl, beats radio (24/7)",  duration: "Live",     tag: "YouTube" },
+      { type: "youtube",          id: "HuFYqnbVbzY",            title: "Jazz Lofi Radio (24/7)",          duration: "Live",     tag: "YouTube" },
+      { type: "soundcloud",       url: "https://soundcloud.com/dawning-lofi/sets/lofi-focus-music-for-work", title: "Lofi Focus Music for Work (Dawning Lofi)", duration: "Set", tag: "SoundCloud" },
+      { type: "soundcloud",       url: "https://soundcloud.com/klangspot/sets/lofi-music-for-work",          title: "Lofi for Work Productivity (Klangspot)",   duration: "Set", tag: "SoundCloud" },
+      { type: "soundcloud",       url: "https://soundcloud.com/ujesh/sets/lo-fi-deep-focus-work-study",      title: "Lo-Fi Deep Focus Work & Study",            duration: "Set", tag: "SoundCloud" },
+      { type: "spotify-playlist", id: "37i9dQZF1DWZeKCadgRdKQ", title: "Deep Focus (Spotify, login for full)",     duration: "Playlist", tag: "Spotify" },
+      { type: "spotify-playlist", id: "37i9dQZF1DWXLeA8Omikj7", title: "Brain Food (Spotify, login for full)",      duration: "Playlist", tag: "Spotify" },
+      { type: "spotify-playlist", id: "37i9dQZF1DWVqfgj8NZEp1", title: "Coffee Table Jazz (Spotify, login for full)", duration: "Playlist", tag: "Spotify" },
     ],
   },
 

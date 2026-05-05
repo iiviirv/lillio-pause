@@ -562,6 +562,8 @@ button { font-family: inherit; }
 }
 .tag.spotify { background: var(--tag-sp-bg); color: var(--tag-sp-fg); }
 .tag.youtube { background: var(--tag-yt-bg); color: var(--tag-yt-fg); }
+.tag.soundcloud { background: rgba(255, 119, 0, 0.14); color: #d35400; }
+:root[data-theme="dark"] .tag.soundcloud { background: rgba(255, 119, 0, 0.18); color: #ff9646; }
 .duration { color: var(--ink-5); font-weight: 500; }
 
 /* welcome cards */
