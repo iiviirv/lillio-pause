@@ -450,6 +450,28 @@
     });
     $("#sidebarBackdrop").addEventListener("click", closeMobileSidebar);
 
+    // Theme toggle (light/dark)
+    function setTheme(theme) {
+      document.documentElement.setAttribute("data-theme", theme);
+      try { localStorage.setItem("lillioPauseTheme", theme); } catch {}
+    }
+    function toggleTheme() {
+      const current = document.documentElement.getAttribute("data-theme") || "light";
+      setTheme(current === "dark" ? "light" : "dark");
+    }
+    $$("#themeToggle, #themeToggleMobile").forEach(b => b.addEventListener("click", toggleTheme));
+    // Follow system changes only if user hasn't explicitly chosen
+    if (window.matchMedia) {
+      const mq = window.matchMedia("(prefers-color-scheme: dark)");
+      mq.addEventListener && mq.addEventListener("change", e => {
+        try {
+          if (!localStorage.getItem("lillioPauseTheme")) {
+            document.documentElement.setAttribute("data-theme", e.matches ? "dark" : "light");
+          }
+        } catch {}
+      });
+    }
+
     // Search
     const searchInput = $("#searchInput");
     let searchTimer;

@@ -27,21 +27,54 @@
 // =====================================================================
 
 const CONTENT = {
-  // QUICK RESETS: 1 to 5 minute breathers for between activities, during
-  // nap time, or before a tough conversation with a parent.
-  quickResets: {
-    title: "Quick Resets",
-    subtitle: "1 to 5 minutes. Use between activities or whenever you need a beat.",
-    icon: "🌿",
+  // UNDER 3 MINUTES: micro meditations and breath resets you can do
+  // standing in the hallway. The shortest path back to a calm baseline.
+  under3: {
+    title: "Under 3 Minutes",
+    subtitle: "When you've got 60 seconds and a doorway. Breath resets, mini meditations, no commitment required.",
+    icon: "⚡",
     moods: ["stressed", "anxious"],
     items: [
-      { type: "youtube", id: "wWNaQr6RF8E", title: "4-7-8 Breathing, 1 Minute",      duration: "1 min", tag: "Breath" },
-      { type: "youtube", id: "n6RbW2LtdFs", title: "Box Breathing, 1 Minute",         duration: "1 min", tag: "Breath" },
-      { type: "youtube", id: "tEmt1Znux58", title: "Box Breathing for Stress Relief", duration: "4 min", tag: "Breath" },
-      { type: "youtube", id: "cEqZthCaMpo", title: "Mini Meditation: Breathe",        duration: "1 min", tag: "Reset" },
-      { type: "youtube", id: "k0PSUDvLi8E", title: "7-Minute Meditation to Start the Day", duration: "7 min", tag: "Morning" },
-      { type: "youtube", id: "4C-gxOE0j7s", title: "5-Minute Morning Yoga",           duration: "5 min", tag: "Movement" },
-      { type: "youtube", id: "jOfshreyu4w", title: "Quick Stress Fix, 5 Minutes",     duration: "5 min", tag: "Movement" },
+      { type: "youtube", id: "wWNaQr6RF8E", title: "4-7-8 Breathing, 1 Minute",          duration: "1 min",  tag: "Breath" },
+      { type: "youtube", id: "n6RbW2LtdFs", title: "Box Breathing, 1 Minute",             duration: "1 min",  tag: "Breath" },
+      { type: "youtube", id: "cEqZthCaMpo", title: "Mini Meditation: Breathe",            duration: "1 min",  tag: "Reset" },
+      { type: "youtube", id: "Xz224hIqwHM", title: "3-Minute Meditation for Stress Relief", duration: "3 min", tag: "Stress" },
+      { type: "youtube", id: "8Ffhv3-8Sjw", title: "3-Minute Breathing for Anxiety",       duration: "3 min",  tag: "Anxiety" },
+      { type: "youtube", id: "VzVpckjnOco", title: "3-Minute Relax and Relief",            duration: "3 min",  tag: "Calm" },
+      { type: "youtube", id: "ACYZXD3Ap1M", title: "3-Minute Mindful Reset",               duration: "3 min",  tag: "Reset" },
+    ],
+  },
+
+  // MORNING: wake up and intention setting. The way you start the day
+  // is the way the day starts back.
+  morning: {
+    title: "Morning",
+    subtitle: "Start the day with a soft landing. Wake-up meditations, intention setting, and gentle morning movement.",
+    icon: "🌅",
+    moods: ["focus"],
+    items: [
+      { type: "youtube", id: "DaHH--jJBtg", title: "5-Minute Morning Energy (SELF)",          duration: "5 min",  tag: "Morning" },
+      { type: "youtube", id: "wNgaaKM1FYA", title: "A Morning with Purpose & Intention",      duration: "5 min",  tag: "Intention" },
+      { type: "youtube", id: "IuqLsYd-rQs", title: "5-Minute Guided Morning Meditation",      duration: "5 min",  tag: "Energy" },
+      { type: "youtube", id: "k0PSUDvLi8E", title: "7-Minute Meditation to Start the Day",    duration: "7 min",  tag: "Morning" },
+      { type: "youtube", id: "4C-gxOE0j7s", title: "5-Minute Morning Yoga",                   duration: "5 min",  tag: "Movement" },
+      { type: "youtube", id: "UEEsdXn8oG8", title: "Wake Up Yoga, 11-Minute Flow",            duration: "11 min", tag: "Movement" },
+    ],
+  },
+
+  // QUICK BREAK: 5 to 7 minute mid-day breaks. Long enough to actually
+  // shift gears, short enough to fit between activities.
+  quickBreak: {
+    title: "Quick Break",
+    subtitle: "Mid-day, between activities, after a hard parent conversation. Five to seven minutes of doing nothing on purpose.",
+    icon: "🌿",
+    moods: ["stressed"],
+    items: [
+      { type: "youtube", id: "tEmt1Znux58", title: "Box Breathing for Stress Relief",     duration: "4 min",  tag: "Breath" },
+      { type: "youtube", id: "jOfshreyu4w", title: "Quick Stress Fix, 5 Minutes",         duration: "5 min",  tag: "Stress" },
+      { type: "youtube", id: "DaHH--jJBtg", title: "5-Minute Reset",                      duration: "5 min",  tag: "Reset" },
+      { type: "youtube", id: "DP3BE1ezThE", title: "Resolve to Evolve, 10-Minute Reset",  duration: "10 min", tag: "Reset" },
+      { type: "youtube", id: "O-6f5wQXSu8", title: "10-Minute Meditation for Anxiety",    duration: "10 min", tag: "Anxiety" },
     ],
   },
 
