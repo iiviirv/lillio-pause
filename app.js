@@ -81,8 +81,12 @@
 
     const isSpotify = item.type.startsWith("spotify");
     const isSoundCloud = item.type === "soundcloud";
+    const isHostedAudio = item.type === "audio";
     const isYouTubeVideo = item.type === "youtube" || item.type === "youtube-playlist";
-    const sourceTag = isSpotify ? "spotify" : (isSoundCloud ? "soundcloud" : "youtube");
+    const sourceTag = isSpotify ? "spotify"
+                    : isSoundCloud ? "soundcloud"
+                    : isHostedAudio ? "audio"
+                    : "youtube";
     const isFav = Favorites.has(item);
 
     // Build the iframe URL (used when the user clicks play).
@@ -100,9 +104,9 @@
       : "";
 
     // Initial state: a play card. iframe is NOT loaded yet.
-    const mediaClass = (isSpotify || isSoundCloud) ? "audio" : "video";
+    const mediaClass = (isSpotify || isSoundCloud || isHostedAudio) ? "audio" : "video";
     card.innerHTML = `
-      <div class="card-media ${mediaClass} ${isYouTubeVideo ? "lazy yt-mode-audio" : ""}">
+      <div class="card-media ${mediaClass} ${isYouTubeVideo ? "lazy yt-mode-audio" : ""} ${isHostedAudio ? "hosted-audio" : ""}">
         ${isYouTubeVideo ? `
           <button class="play-overlay" type="button" aria-label="Play ${escapeHTML(item.title)}">
             ${ytThumb ? `<img class="play-thumb" src="${ytThumb}" alt="" loading="lazy" />` : `<div class="play-thumb-fallback"></div>`}
@@ -110,6 +114,12 @@
               <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
             </span>
           </button>
+        ` : isHostedAudio ? `
+          <div class="hosted-audio-wrap">
+            <audio controls preload="none" src="${escapeHTML(item.url)}"${item.type === "audio" ? "" : ""}>
+              Your browser does not support audio playback.
+            </audio>
+          </div>
         ` : `
           <iframe src="${iframeUrl}" title="${escapeHTML(item.title)}" loading="lazy" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
         `}

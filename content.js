@@ -28,6 +28,17 @@
 //         type: "soundcloud"
 //         url:  "https://soundcloud.com/USERNAME/sets/SET_NAME"
 //
+//  Adding a hosted audio item (direct MP3, no third party):
+//    Recommended source: Pixabay Music. All tracks are royalty-free,
+//    free for commercial use, no attribution required.
+//    1. Find a track at https://pixabay.com/music/
+//    2. Open the track page, then in browser DevTools (F12) Network tab,
+//       click play and copy the MP3 download URL (cdn.pixabay.com/...).
+//       Or right-click the audio element and Copy audio address.
+//    3. Add an entry with:
+//         type: "audio"
+//         url:  "https://cdn.pixabay.com/download/audio/.../filename.mp3"
+//
 //  Items render in the order listed. Keep titles short and friendly.
 //  This file is automatically refreshed each Monday by a scheduled task.
 //  Last updated: 2026-05-05
@@ -122,6 +133,10 @@ const CONTENT = {
       { type: "youtube",          id: "MIr3RsUWrdo",            title: "20-Minute Wind-Down Meditation",                duration: "20 min",   tag: "Meditation" },
       { type: "youtube",          id: "d4S4twjeWTs",            title: "Meditation for Inner Peace",                    duration: "13 min",   tag: "Meditation" },
       { type: "youtube-playlist", id: "PLwRp13WDIrMPzLqtyvvPrs7sMR_lvZ8Bf", title: "Jason Stephenson Sleep Meditations", duration: "Playlist", tag: "Sleep" },
+      { type: "audio", url: "https://cdn.pixabay.com/download/audio/2024/11/11/audio_5185f3b518.mp3?filename=leberch-relaxing-sleep-263067.mp3", title: "Relaxing Sleep",        duration: "Track", tag: "Pixabay" },
+      { type: "audio", url: "https://cdn.pixabay.com/download/audio/2024/10/24/audio_6fee608f36.mp3?filename=leberch-sleep-meditation-254767.mp3", title: "Sleep Meditation",     duration: "Track", tag: "Pixabay" },
+      { type: "audio", url: "https://cdn.pixabay.com/download/audio/2024/11/11/audio_6af72a9085.mp3?filename=leberch-sleep-262907.mp3",          title: "Sleep (electronic)",     duration: "Track", tag: "Pixabay" },
+      { type: "audio", url: "https://cdn.pixabay.com/download/audio/2023/03/20/audio_e7070220f5.mp3?filename=the_mountain-baby-sleep-143300.mp3", title: "Baby Sleep (modern classical)", duration: "Track", tag: "Pixabay" },
       { type: "soundcloud",       url: "https://soundcloud.com/lofi_girl/sets/synthwave-ambient-chill-music",   title: "Lofi Girl: Chill Music to Sleep To", duration: "Set",     tag: "SoundCloud" },
       { type: "soundcloud",       url: "https://soundcloud.com/spaspace-music/sets/ambient-lofi-and-nature-sounds", title: "Ambient & Nature Sounds (Spa Space)", duration: "Set",  tag: "SoundCloud" },
       { type: "spotify-playlist", id: "37i9dQZF1DX2PQDq3PdrHQ", title: "Lofi Sleep (Spotify, login for full)",          duration: "Playlist", tag: "Spotify" },
@@ -129,21 +144,26 @@ const CONTENT = {
   },
 
   // SOUNDSCAPES: ambient audio, no narration. For naptime, focus, or
-  // anyone who finds guided meditation too talky. SoundCloud and YouTube
-  // play in full for everyone; Spotify is preview-only without login.
+  // anyone who finds guided meditation too talky. Hosted MP3s and
+  // SoundCloud and YouTube all play in full for everyone; Spotify is
+  // preview-only without login.
   soundscapes: {
     title: "Soundscapes",
-    subtitle: "Just sound, no narration. Rain on a window, a forest at dusk, a fireplace.",
+    subtitle: "Just sound, no narration. Hosted directly or streamed from creators we trust.",
     icon: "🌧️",
     moods: ["tired", "focus", "stressed"],
     items: [
+      { type: "audio", url: "https://cdn.pixabay.com/download/audio/2026/04/15/audio_1b8d731335.mp3?filename=jonasblakewood-background-music-519872.mp3", title: "Background (ambient)",       duration: "Track", tag: "Pixabay" },
+      { type: "audio", url: "https://cdn.pixabay.com/download/audio/2026/05/01/audio_ff8edc19a6.mp3?filename=jonasblakewood-nature-519884.mp3",          title: "Nature (synthwave ambient)", duration: "Track", tag: "Pixabay" },
+      { type: "audio", url: "https://cdn.pixabay.com/download/audio/2026/04/21/audio_b730755dfb.mp3?filename=leberch-cosmos-516618.mp3",                  title: "Cosmos (ambient)",           duration: "Track", tag: "Pixabay" },
+      { type: "audio", url: "https://cdn.pixabay.com/download/audio/2026/04/18/audio_3eb96b86d8.mp3?filename=jonasblakewood-inspiring-517928.mp3",        title: "Inspiring (ambient)",        duration: "Track", tag: "Pixabay" },
       { type: "soundcloud",       url: "https://soundcloud.com/spaspace-music/sets/ambient-lofi-and-nature-sounds", title: "Ambient Lofi & Nature Sounds (Spa Space)", duration: "Set", tag: "SoundCloud" },
-      { type: "soundcloud",       url: "https://soundcloud.com/soothingrelaxation/deep-relaxing-music-vol-1-ambient-music-for-sleep-meditation-focus-relaxation", title: "Deep Relaxing Music Vol. 1 (Soothing Relaxation)", duration: "Track", tag: "SoundCloud" },
-      { type: "soundcloud",       url: "https://soundcloud.com/lofi_girl/sets/synthwave-ambient-chill-music", title: "Lofi Girl: Synth Ambient", duration: "Set", tag: "SoundCloud" },
-      { type: "soundcloud",       url: "https://soundcloud.com/noiseofdreamsnetwork/sets/lofi-ambient", title: "Lofi Ambient (Noise of Dreams)", duration: "Set", tag: "SoundCloud" },
-      { type: "youtube",          id: "jfKfPfyJRdk",                                                title: "Lofi Girl, beats radio (24/7)",  duration: "Live", tag: "YouTube" },
-      { type: "spotify-playlist", id: "37i9dQZF1DX4PP3DA4J0N8",                                     title: "Nature Sounds (Spotify, login for full)", duration: "Playlist", tag: "Spotify" },
-      { type: "spotify-playlist", id: "37i9dQZF1DX3Ogo9pFvBkY",                                     title: "Ambient Relaxation (Spotify, login for full)", duration: "Playlist", tag: "Spotify" },
+      { type: "soundcloud",       url: "https://soundcloud.com/soothingrelaxation/deep-relaxing-music-vol-1-ambient-music-for-sleep-meditation-focus-relaxation", title: "Deep Relaxing Music Vol. 1", duration: "Track", tag: "SoundCloud" },
+      { type: "soundcloud",       url: "https://soundcloud.com/lofi_girl/sets/synthwave-ambient-chill-music",      title: "Lofi Girl: Synth Ambient", duration: "Set", tag: "SoundCloud" },
+      { type: "soundcloud",       url: "https://soundcloud.com/noiseofdreamsnetwork/sets/lofi-ambient",            title: "Lofi Ambient (Noise of Dreams)", duration: "Set", tag: "SoundCloud" },
+      { type: "youtube",          id: "jfKfPfyJRdk",                                                               title: "Lofi Girl, beats radio (24/7)",  duration: "Live", tag: "YouTube" },
+      { type: "spotify-playlist", id: "37i9dQZF1DX4PP3DA4J0N8",                                                    title: "Nature Sounds (Spotify, login for full)", duration: "Playlist", tag: "Spotify" },
+      { type: "spotify-playlist", id: "37i9dQZF1DX3Ogo9pFvBkY",                                                    title: "Ambient Relaxation (Spotify, login for full)", duration: "Playlist", tag: "Spotify" },
     ],
   },
 
@@ -162,14 +182,19 @@ const CONTENT = {
   },
 
   // FOCUS MUSIC: for lesson planning, paperwork, parent emails, or any
-  // time you need to actually finish that thing on your list. YouTube
-  // and SoundCloud play in full for everyone, no login required.
+  // time you need to actually finish that thing on your list. Hosted
+  // MP3s and YouTube and SoundCloud play in full for everyone.
   focusMusic: {
     title: "Focus Music",
     subtitle: "Background music for lesson planning, reports, and deep work. Press play and don't think about it.",
     icon: "🎧",
     moods: ["focus"],
     items: [
+      { type: "audio", url: "https://cdn.pixabay.com/download/audio/2024/11/26/audio_24ad329374.mp3?filename=lofcosmos-focus-lofi-269097.mp3", title: "Focus Lofi",                 duration: "Track", tag: "Pixabay" },
+      { type: "audio", url: "https://cdn.pixabay.com/download/audio/2024/11/26/audio_dd17a363fa.mp3?filename=lofcosmos-focus-glow-lofi-269098.mp3", title: "Focus Glow (lofi)",      duration: "Track", tag: "Pixabay" },
+      { type: "audio", url: "https://cdn.pixabay.com/download/audio/2026/04/21/audio_f7944347cd.mp3?filename=fassounds-reviews-lofi-chill-focus-beat-516080.mp3", title: "Reviews (lofi chill focus beat)", duration: "Track", tag: "Pixabay" },
+      { type: "audio", url: "https://cdn.pixabay.com/download/audio/2023/01/28/audio_31be9edfbf.mp3?filename=the_mountain-inspiring-focus-137045.mp3", title: "Inspiring Focus (modern classical)", duration: "Track", tag: "Pixabay" },
+      { type: "audio", url: "https://cdn.pixabay.com/download/audio/2023/02/24/audio_5b1df4684b.mp3?filename=the_mountain-focus-pop-140470.mp3", title: "Focus Pop",                duration: "Track", tag: "Pixabay" },
       { type: "youtube",          id: "jfKfPfyJRdk",            title: "Lofi Girl, beats radio (24/7)",  duration: "Live",     tag: "YouTube" },
       { type: "youtube",          id: "HuFYqnbVbzY",            title: "Jazz Lofi Radio (24/7)",          duration: "Live",     tag: "YouTube" },
       { type: "soundcloud",       url: "https://soundcloud.com/dawning-lofi/sets/lofi-focus-music-for-work", title: "Lofi Focus Music for Work (Dawning Lofi)", duration: "Set", tag: "SoundCloud" },
