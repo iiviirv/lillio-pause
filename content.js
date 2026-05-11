@@ -42,7 +42,7 @@
 //
 //  Items render in the order listed. Keep titles short and friendly.
 //  This file is automatically refreshed each Monday by a scheduled task.
-//  Last updated: 2026-05-05
+//  Last automated refresh: 2026-05-11
 // =====================================================================
 
 const CONTENT = {
@@ -122,6 +122,8 @@ const CONTENT = {
       { type: "youtube", id: "4pLUleLdwY4", title: "Meditation for Anxiety",                  duration: "15 min", tag: "Anxiety" },
       { type: "youtube", id: "CscxGprl1yw", title: "Stillness for Stress Relief",             duration: "15 min", tag: "Stress" },
       { type: "youtube", id: "MIr3RsUWrdo", title: "20-Minute Meditation: Clear the Clutter", duration: "20 min", tag: "Stress" },
+      { type: "youtube", id: "217ensSqsTM", title: "10-Min Mindfulness for Anxiety & Stress (Mindful Movement)", duration: "10 min", tag: "Anxiety" },
+      { type: "youtube", id: "-KMngzCWgTw", title: "15-Min Stress Relief & Confidence (Mindful Movement)", duration: "15 min", tag: "Stress" },
       { type: "spotify-playlist",  id: "37i9dQZF1DWZqd5JICZI0u", title: "Peaceful Meditation",                   duration: "Playlist", tag: "Spotify" },
       { type: "youtube-playlist",  id: "PLui6Eyny-UzzG5qB0LNxyVh3Mu6GjYJC_", title: "Yoga With Adriene Meditations", duration: "Playlist", tag: "Mixed" },
       { type: "youtube-playlist",  id: "PLQiGxGHwiuD1kdxsWKFuhE0rITIXe-7yC", title: "Goodful Meditations",            duration: "Playlist", tag: "Mixed" },
@@ -191,6 +193,7 @@ const CONTENT = {
       { type: "youtube", id: "4C-gxOE0j7s", title: "5-Minute Morning Yoga",         duration: "5 min",  tag: "Morning" },
       { type: "youtube", id: "jOfshreyu4w", title: "Quick Stress Fix, 5 Minutes",   duration: "5 min",  tag: "Stress" },
       { type: "youtube", id: "UEEsdXn8oG8", title: "Wake Up Yoga, 11 Minute Flow",  duration: "11 min", tag: "Morning" },
+      { type: "youtube", id: "X3-gKPNyrTA", title: "Neck, Shoulders & Upper Back (Yoga Quickie)", duration: "10 min", tag: "Relief" },
       { type: "audio", url: "https://cdn.pixabay.com/download/audio/2026/03/26/audio_a6cbfd02c9.mp3?filename=leberch-yoga-509070.mp3", art: "https://cdn.pixabay.com/audio/2026/04/01/12-19-29-872_200x200.jpg", title: "Yoga (ambient)",        duration: "Track", tag: "Pixabay" },
       { type: "audio", url: "https://cdn.pixabay.com/download/audio/2026/03/27/audio_a7b94094ca.mp3?filename=leberch-yoga-509709.mp3", art: "https://cdn.pixabay.com/audio/2026/03/31/13-35-54-412_200x200.jpg", title: "Yoga (meditation)",     duration: "Track", tag: "Pixabay" },
       { type: "audio", url: "https://cdn.pixabay.com/download/audio/2026/03/29/audio_e87d91bf16.mp3?filename=leberch-yoga-510555.mp3", art: "https://cdn.pixabay.com/audio/2026/04/02/21-05-39-643_200x200.jpg", title: "Yoga Flow",             duration: "Track", tag: "Pixabay" },
@@ -243,6 +246,8 @@ const CONTENT = {
       { type: "youtube",          id: "ixeuFRqzlNk",            title: "Swirling, meditation for kids (GoNoodle)",   duration: "4 min",    tag: "Kids" },
       { type: "youtube",          id: "bRkILioT_NA",            title: "Learn to Bring Down Stress (GoNoodle)",      duration: "4 min",    tag: "Kids" },
       { type: "youtube",          id: "jp7B7CEqRYk",            title: "Let's Unwind, Flow meditation (GoNoodle)",   duration: "5 min",    tag: "Kids" },
+      { type: "youtube",          id: "jJ9zpRAPIuI",            title: "Superpower Listening (Cosmic Kids Zen Den)", duration: "4 min",    tag: "Kids" },
+      { type: "youtube",          id: "jzYtNWjQiK0",            title: "The 'I can't' Monster (Cosmic Kids Zen Den)", duration: "4 min",    tag: "Kids" },
       { type: "youtube-playlist", id: "PL8snGkhBF7ngDp1oJtx5VcjwatxZn8xLK", title: "Cosmic Kids Zen Den (mindfulness)", duration: "Playlist", tag: "Kids" },
     ],
   },
